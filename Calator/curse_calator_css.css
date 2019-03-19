@@ -1,0 +1,87 @@
+:root{
+    --color1: #e25f2f;
+    --color2: #b54479;
+    --color3: #3498db;
+    --color4: #079992;
+}
+.serviceBox{
+    font-family: 'Titillium Web', sans-serif;
+    text-align: center;
+    padding: 0 10px 15px;
+    position: relative;
+    z-index: 1;
+}
+.serviceBox:after{
+    content: "";
+    background: var(--color1);
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
+    position: absolute;
+    left: 0;
+    top: 110px;
+    z-index: -2;
+}
+.serviceBox .service-icon{
+    color: #fff;
+    background: var(--color1);
+    font-size: 65px;
+    line-height: 100px;
+    width: 120px;
+    height: 120px;
+    padding: 5px 0 0 5px;
+    margin: 0 auto 60px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px var(--color1);
+    border-radius: 50% 50% 50% 15px;
+    transform: rotate(-45deg);
+}
+.serviceBox .service-icon i.fa{
+    transform: rotate(45deg);
+    transition: all 0.3s;
+}
+.serviceBox:hover .service-icon i.fa{
+    text-shadow: 0 0 5px #000;
+    transform:rotate(-315deg);
+}
+.serviceBox .title{
+    color: var(--color1);
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+}
+.serviceBox .description{
+    color: #555;
+    font-size: 15px;
+    text-align: justify;
+    letter-spacing: 1px;
+}
+.serviceBox.purple:after{ background: var(--color2); }
+.serviceBox.purple .service-icon{
+    background: var(--color2);
+    box-shadow: 0 0 0 3px var(--color2);
+}
+.serviceBox.purple .title{ color: var(--color2); }
+.serviceBox.blue:after{ background: var(--color3); }
+.serviceBox.blue .service-icon{
+    background: var(--color3);
+    box-shadow: 0 0 0 3px var(--color3);
+}
+.serviceBox.blue .title{ color: var(--color3); }
+.serviceBox.green:after{ background: var(--color4); }
+.serviceBox.green .service-icon{
+    background: var(--color4);
+    box-shadow: 0 0 0 3px var(--color4);
+}
+.serviceBox.green .title{ color: var(--color4); }
+@media only screen and (max-width:990px){
+    .serviceBox{ margin: 0 0 30px; }
+}
+
+.col-md-3, .col-sm-6{
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px
+}

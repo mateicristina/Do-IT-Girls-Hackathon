@@ -1,0 +1,123 @@
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
+var TYPES = require('tedious').TYPES;
+
+
+// Create connection to database
+var config = {
+    userName: 'azureuser', // update me
+    password: 'Azure1234567', // update me
+    server: 'letsdoitserver.database.windows.net',
+    options: {
+        database: 'myDB',
+        encrypt: true
+    }
+}
+var connection = new Connection(config);
+
+// var sql = require("mssql");
+//
+// // connect to your database
+// sql.connect(config, function (err) {
+//
+//     if (err) console.log(err);
+//
+//     // create Request object
+//     var request = new sql.Request();
+//
+//     // query to the database and get the records
+//     request.query('select * from driverTable', function (err, recordset) {
+//
+//         if (err) console.log(err)
+//
+//         // send records as a response
+//         res.send(recordset);
+//
+//     });
+// });
+
+// Attempt to connect and execute queries if connection goes through
+connection.on('connect', function(err) {
+    if (err) {
+        console.log(err);
+    } else {
+        executeStatement();
+        console.log('Connected');
+        // // console.log(queryDatabase());
+        //
+        //     console.log('Reading rows from the Table...');
+        //
+        //     // Read all rows from table
+        //     var request = new Request(
+        //         "SELECT * FROM loginTable",
+        //         function(result)
+        //         {
+        //             console.log(result);
+        //             process.exit();
+        //         }
+        //     );
+        //    console.log(request);
+        //     // request.on('row', function(columns) {
+        //     //     columns.forEach(function(column) {
+        //     //         console.log("%s\t%s", column.metadata.colName, column.value);
+        //     //     });
+        //     // });
+        //
+        //     connection.execSql(request);
+
+    }
+});
+
+
+
+// function queryDatabase()
+// {
+//     console.log('Reading rows from the Table...');
+//
+//     // Read all rows from table
+//     var request = new Request(
+//         "SELECT * FROM driverTable",
+//         function(result)
+//         {
+//             console.log(result);
+//             process.exit();
+//         }
+//     );
+//     console.log(request);
+//     // request.on('row', function(columns) {
+//     //     columns.forEach(function(column) {
+//     //         console.log("%s\t%s", column.metadata.colName, column.value);
+//     //     });
+//     // });
+//
+//     connection.execSql(request);
+// }
+
+// queryDatabase();
+
+// process.onload = function() {
+// }
+
+function executeStatement() {
+    request = new Request("select * from driverTable", function(err) {
+        if (err) {
+            console.log(err);}
+    });
+    var result = "";
+    request.on('row', function(columns) {
+        columns.forEach(function(column) {
+            // if (column.value === null) {
+            //     console.log('NULL');
+            // } else {
+                result+= column.value + " ";
+            // }
+        });
+        console.log(result);
+        result ="";
+    });
+
+    request.on('done', function(rowCount, more) {
+        console.log(rowCount + ' rows returned');
+    });
+    connection.execSql(request);
+}
